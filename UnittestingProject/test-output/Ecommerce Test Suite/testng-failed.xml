@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Ecommerce Test Suite]">
+  <test thread-count="5" name="FacebookTest(failed)">
+    <classes>
+      <class name="com.ecom.webapp.facebook.FacebookLoginTest">
+        <methods>
+          <include name="beforeMethod"/>
+          <include name="afterMethod"/>
+          <include name="invalidUserCredsTest"/>
+        </methods>
+      </class> <!-- com.ecom.webapp.facebook.FacebookLoginTest -->
+    </classes>
+  </test> <!-- FacebookTest(failed) -->
+</suite> <!-- Failed suite [Ecommerce Test Suite] -->

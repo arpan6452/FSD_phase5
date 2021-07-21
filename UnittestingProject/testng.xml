@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Ecommerce Test Suite">
+	<test name="AmazonTest">
+		<classes>
+			<class name="com.ecom.webapp.amazon.AmazonHomepageTest"></class>
+			<class name="com.ecom.webapp.amazon.AmazoNavLinkTest"></class>
+		</classes>
+	</test>
+	<test name="GroupTest">
+		<classes>
+			<class name="com.ecom.webapp.BrowserGroupTest"></class>
+		</classes>
+	</test>
+</suite>

@@ -1,0 +1,139 @@
+<!-- <div class="conatainer"> -->
+<form [formGroup]="cartForm" (ngSubmit)="confirmOrder()">
+  <div class="row p-4 w-100">
+    <div class="col-lg-9 col-md-9 p-2">
+      <h5>Shipping address:</h5>
+      <div class="row p-2">
+        <div class="col-6">
+          <label for="username" class="form-label">Name</label>
+          <input type="text" class="form-control" id="username" name="username" formControlName ="username">
+          <small *ngIf="hasError('username')" [class] = "hasError('username') ? 'has-error' : ''">
+            <div *ngIf="f.username.errors">
+              <span *ngIf="f.username.errors.required">Username is a required field</span>
+            </div>
+          </small>
+        </div>
+        <div class="col-6">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" formControlName="email">
+          <small *ngIf="hasError('email')" [class] = "hasError('email') ? 'has-error' : ''">
+            <div *ngIf="f.email.errors">
+              <span *ngIf="f.email.errors.required">Email is a required field</span>
+            </div>
+          </small>
+        </div>
+        <div class="col-12">
+          <label for="address1" class="form-label">Address 1</label>
+          <input type="text" class="form-control" id="address1" name="address1" formControlName="address1">
+          <small *ngIf="hasError('address1')" [class] = "hasError('address1') ? 'has-error' : ''">
+            <div *ngIf="f.address1.errors">
+              <span *ngIf="f.address1.errors.required">Address1 is a required field</span>
+            </div>
+          </small>
+        </div>
+        <div class="col-12">
+          <label for="address2" class="form-label">Address 2</label>
+          <input type="text" class="form-control" id="address2" name="address2" formControlName="address2">
+          <small *ngIf="hasError('address2')" [class] = "hasError('address2') ? 'has-error' : ''">
+            <div *ngIf="f.address2.errors">
+              <span *ngIf="f.address2.errors.required">Address2 is a required field</span>
+            </div>
+          </small>
+        </div>
+        <div class="col-4">
+          <label for="city" class="form-label">City</label>
+          <input type="city" class="form-control" id="city" name="city" formControlName="city">
+          <small *ngIf="hasError('city')" [class] = "hasError('city') ? 'has-error' : ''">
+            <div *ngIf="f.city.errors">
+              <span *ngIf="f.city.errors.required">City is a required field</span>
+            </div>
+          </small>
+        </div>
+        <div class="col-4">
+          <label for="state" class="form-label">State</label>
+          <input type="state" class="form-control" id="state" name="state" formControlName="state">
+          <small *ngIf="hasError('state')" [class] = "hasError('state') ? 'has-error' : ''">
+            <div *ngIf="f.state.errors">
+              <span *ngIf="f.state.errors.required">State is a required field</span>
+            </div>
+          </small>
+        </div>
+        <div class="col-4">
+          <label for="pincode" class="form-label">Pincode</label>
+          <input type="pincode" class="form-control" id="pincode" name="pincode" formControlName="pincode">
+          <small *ngIf="hasError('pincode')" [class] = "hasError('pincode') ? 'has-error' : ''">
+            <div *ngIf="f.pincode.errors">
+              <span *ngIf="f.pincode.errors.required">Pincode is a required field</span>
+            </div>
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 p-2">
+      <div style="height:500px; overflow: auto;">
+        <div class="d-flex justify-content-center bg-dark p-2 mt-3 w-100 mb-3" style="color: white;">Cart</div>
+          <!-- <div class="container-fluid"> -->
+            <h6>Items </h6>
+            <div *ngFor="let cartItem of billedList">
+              <div class="d-flex bd-highlight">
+                <div class="p-2 w-100 bd-highlight">{{cartItem.itemName}}</div>
+                <div class="p-2 flex-shrink-1 bd-highlight">{{cartItem.price | currency:'INR':'symbol-narrow'}}</div>
+              </div>
+            </div>
+            <h6>Bill Details</h6>
+            <div class="d-flex bd-highlight">
+              <div class="p-2 w-100 bd-highlight">GST</div>
+              <div class="p-2 flex-shrink-1 bd-highlight">{{gst | currency:'INR':'symbol-narrow'}}</div>
+              <!-- <input type="hidden" value="{{gst}}" id="gst" name="gst" formControlName="gst"> -->
+            </div>
+            <div class="d-flex bd-highlight">
+              <div class="p-2 w-100 bd-highlight">SGST</div>
+              <div class="p-2 flex-shrink-1 bd-highlight">{{sgst | currency:'INR':'symbol-narrow'}}</div>
+              <!-- <input type="hidden" value="{{sgst}}" id="sgst" name="sgst" formControlName="sgst"> -->
+            </div>
+            <hr>
+            <div class="d-flex bd-highlight">
+              <div class="p-2 w-100 bd-highlight">Total</div>
+              <div class="p-2 flex-shrink-1 bd-highlight">{{totalPriceWithTax | currency:'INR':'symbol-narrow'}}</div>
+              <!-- <input type="hidden" value="{{totalPriceWithTax}}" id="totalPriceWithTax" name="totalPriceWithTax" formControlName="totalPriceWithTax"> -->
+            </div>
+          <!-- </div> -->
+        <button type="submit" [(disabled)] = "!this.cartForm.valid" class="btn btn-dark w-100 mt-3" data-bs-toggle="modal" data-bs-target="#orderconfirmationModal">
+          Checkout
+        </button>
+        <div *ngIf="showModal" class="modal fade" id="orderconfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Order Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="d-flex justify-content-center"><i class="fas fa-check-circle" style="font-size: 50px;color: green;"></i></div>
+                <div class="px-4 py-5">
+                  <h4 class="">Thank you for your order <i>{{this.cartForm.get("username").value}}</i></h4>
+                  <span class="pt-2 pb-2 theme-color">
+                    Delivery Address: <span class="text-muted">{{fullAddress}}</span>
+                  </span><br>
+                  <span class="theme-color">
+                    Payment Summary
+                  </span>
+                  <div class="mb-3">
+                      <hr>
+                  </div>
+                  <div class="d-flex justify-content-between"> <span class="font-weight-bold">Item Total</span> <span class="text-muted">{{totalPrice | currency:'INR':'symbol-narrow'}}</span> </div>
+                  <div class="d-flex justify-content-between"> <small>GS</small> <small class="text-muted">{{gst | currency:'INR':'symbol-narrow'}}</small> </div>
+                  <div class="d-flex justify-content-between"> <small>SGST</small> <small class="text-muted">{{sgst | currency:'INR':'symbol-narrow'}}</small> </div>
+                  <div class="d-flex justify-content-between mt-3"> <span class="font-weight-bold">Total </span> <span class="font-weight-bold theme-color">{{totalPriceWithTax | currency:'INR':'symbol-narrow'}}</span> </div>
+
+                  <div class="text-center mt-5"> <button class="btn btn-dark w-100">Track your order</button> </div>
+              </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

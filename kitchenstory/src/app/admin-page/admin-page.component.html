@@ -1,0 +1,205 @@
+<div class="container-fluid">
+  <div class="d-flex justify-content-start">
+    Edit Profile , <i class="fas fa-edit p-1" data-bs-toggle="modal" data-bs-target="#updatePassword" style="cursor: pointer;"></i>
+  </div>
+  <div class="modal fade" id="updatePassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form [formGroup]="updatePasswordForm" (ngSubmit)="updatePassword()">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Update Password</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="m-2 form-group">
+              <label for="oldpassword" class="form-label">Enter oldpassword</label>
+              <input type="text" class="form-control" aria-label="oldpassword" id="oldpassword" name="oldpassword" formControlName="oldpassword">
+            </div>
+            <div class="m-2 form-group">
+              <label for="newpassword" class="form-label">Enter newpassword</label>
+              <input type="text" class="form-control" aria-label="newpassword" id="newpassword" name="newpassword" formControlName="newpassword">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-dark">Update Password</button>
+            <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end">
+    <button class="me-2 btn btn-dark curdButton" data-bs-toggle="modal" data-bs-target="#createItemModal">Create</button>
+  </div>
+  <div class="modal fade" id="createItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form [formGroup]="createItemForm" (ngSubmit)="createItemSubmit()">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Create Item</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="m-2 form-group">
+              <label for="itemName" class="form-label">Enter Item Name</label>
+              <input type="text" class="form-control" aria-label="Item Name" id="itemName" name="itemName" formControlName="itemName">
+            </div>
+            <div class="m-2 form-group">
+              <label for="itemCatagory" class="form-label">Enter Item Category</label>
+              <!-- <input type="text" class="form-control" aria-label="Category of the item" id="itemCatagory" name="itemCatagory" formControlName="itemCatagory"> -->
+              <select class="form-select" id="catagory" style="cursor: pointer;" id="itemCatagory" name="itemCatagory" formControlName="itemCatagory" required>
+                <option selected>Beverage</option>
+                <option>Fruits Vegetables</option>
+                <option>Bakery Cake Dairy</option>
+                <option>Foodgrain oil  masala</option>
+                <option>Snacks Branded Food</option>
+                <option>Egg Meat  Fish</option>
+                <option>Cold Hot Soft Drinks</option>
+              </select>
+            </div>
+            <div class="m-2 form-group">
+              <label for="itemCourse" class="form-label">Enter Item Course</label>
+              <select class="form-select" id="itemCourse" style="cursor: pointer;" id="itemCourse" name="itemCourse" formControlName="itemCourse" required>
+                <option selected>Staters</option>
+                <option>Breakfast</option>
+                <option>Main Course</option>
+                <option>Snacks</option>
+                <option>Drinks</option>
+              </select>
+            </div>
+            <div class="m-2 form-group">
+              <label for="itemType" class="form-label">Enter Item Type</label>
+              <select class="form-select" aria-label="Type of item" id="itemType" name="itemType" formControlName="itemType">
+                <option selected>Veg</option>
+                <option>Non Veg</option>
+              </select>
+            </div>
+            <div class="m-2 form-group">
+              <label for="price" class="form-label">Enter Item Price</label>
+              <div class="input-group">
+                <span class="input-group-text">&#8377;</span>
+                <input type="text" class="form-control" aria-label="Price of item" id="price" name="price" formControlName="price">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-dark">Create</button>
+            <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div class="table-responsive">
+    <table class="mt-2 table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <!-- <th scope="col">Item Id</th> -->
+          <th scope="col">Item Name</th>
+          <th scope="col">Item Catagory</th>
+          <th scope="col">Item Course</th>
+          <th scope="col">Item Type</th>
+          <th scope="col">Item Price</th>
+          <th scope="col">Update</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items; let i = index">
+          <th scope="row">{{i + 1}}</th>
+          <!-- <th>{{item.itemid}}</th> -->
+          <td>{{item.itemName}}</td>
+          <td>{{item.itemCatagory}}</td>
+          <td>{{item.itemCourse}}</td>
+          <td>{{item.itemType}}</td>
+          <td>{{item.price}}</td>
+          <td>
+          <button class="me-2 btn btn-dark curdButton" data-bs-toggle="modal" data-bs-target="#updateItemModal" (click)="openForm(item)">Update</button>
+            <div class="modal fade" id="updateItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <form [formGroup]="updateItemForm" (ngSubmit)="updateItemSubmit(close)">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Update Item</h5>
+                      <button #close type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <input type="hidden" class="form-control" aria-label="Item id" id="itemid" name="itemid" formControlName="itemid" >
+                      <div class="m-2 form-group">
+                        <label for="itemName" class="form-label">Enter Item Name</label>
+                        <input type="text" class="form-control" aria-label="Item Name" id="itemName" name="itemName" formControlName="itemName">
+                      </div>
+                      <div class="m-2 form-group">
+                        <label for="itemCatagory" class="form-label">Enter Item Category</label>
+                        <select class="form-select" id="catagory" style="cursor: pointer;" id="itemCatagory" name="itemCatagory" formControlName="itemCatagory" required>
+                          <option selected>Beverage</option>
+                          <option>Fruits Vegetables</option>
+                          <option>Bakery Cake Dairy</option>
+                          <option>Foodgrain oil  masala</option>
+                          <option>Snacks Branded Food</option>
+                          <option>Egg Meat  Fish</option>
+                          <option>Cold Hot Soft Drinks</option>
+                        </select>
+                      </div>
+                      <div class="m-2 form-group">
+                        <label for="itemCourse" class="form-label">Enter Item Course</label>
+                        <select class="form-select" id="itemCourse" style="cursor: pointer;" id="itemCourse" name="itemCourse" formControlName="itemCourse" required>
+                          <option selected>Breakfast</option>
+                          <option>Main Course</option>
+                          <option>Snacks</option>
+                          <option>Drinks</option>
+                        </select>
+                      </div>
+                      <div class="m-2 form-group">
+                        <label for="itemType" class="form-label">Enter Item Type</label>
+                        <select class="form-select" aria-label="Type of item" id="itemType" name="itemType" formControlName="itemType">
+                          <option selected>Veg</option>
+                          <option>Non Veg</option>
+                        </select>
+                      </div>
+                      <div class="m-2 form-group">
+                        <label for="price" class="form-label">Enter Item Price</label>
+                        <div class="input-group">
+                          <span class="input-group-text">&#8377;</span>
+                          <input type="text" class="form-control" aria-label="Price of item" id="price" name="price" formControlName="price">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-dark">Update</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <button class="ms-2 btn btn-dark curdButton" data-bs-toggle="modal" data-bs-target="#deleteItemModal" (click)="deleteItem(item)">Delete</button>
+            <!-- <div class="modal fade" id="deleteItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div class="d-flex justify-content-end">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                      <i class="fas fa-check-circle p-2" style="font-size: 25px;color: green;"></i><br>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                      <h6>Deleted Successfully</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
